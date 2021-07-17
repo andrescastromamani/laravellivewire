@@ -9,6 +9,7 @@
         <x-table>
             <div class="px-6 py-4">
                 <x-jet-input class="w-full" placeholder="Buscar..." type="text" wire:model="search"></x-jet-input>
+                @livewire('create-post')
             </div>
             @if ($posts->count())
                 <table class="min-w-full divide-y divide-gray-200">
