@@ -8,11 +8,13 @@
         <x-slot name="content">
             <div class="mb-4">
                 <x-jet-label>Titulo del Post</x-jet-label>
-                <x-jet-input class="w-full" type="text" wire:model.defer="title"/>
+                <x-jet-input class="w-full" type="text" wire:model="title" />
+                <x-jet-input-error for="title" />
             </div>
             <div class="mb-4">
                 <x-jet-label>Contenido del Post</x-jet-label>
                 <textarea class="form-control w-full" type="text" rows="6" wire:model.defer="content"></textarea>
+                <x-jet-input-error for="content"/>
             </div>
         </x-slot>
         <x-slot name="footer">
