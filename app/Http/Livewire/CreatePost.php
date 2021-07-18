@@ -15,9 +15,6 @@ class CreatePost extends Component
         'content' => 'required|max:100',
     ];
 
-    public function updated($propertyName){
-        $this->validateOnly($propertyName);
-    }
     public function save(){
         $this->validate();
         Post::create([
