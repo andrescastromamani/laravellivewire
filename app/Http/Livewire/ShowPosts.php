@@ -23,6 +23,9 @@ class ShowPosts extends Component
         $this->identificador = rand();
         $this->post = new Post();
     }
+    public function updatingSearch(){
+        $this->resetPage();
+    }
     protected $rules = [
         'post.title'=>'required',
         'post.content'=> 'required',
