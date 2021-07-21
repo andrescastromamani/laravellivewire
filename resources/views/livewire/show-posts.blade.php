@@ -75,8 +75,8 @@
                                     <div class="text-sm text-gray-900">{{ $item->content }}</div>
                                 </td>
                                 <td class="px-6 py-4 text-sm font-medium">
-                                    {{--@livewire('edit-post',['post'=>$post] ,key($post->id))--}}
-                                    <a class="btn btn-green" wire:click="edit({{$item}})">
+                                    {{-- @livewire('edit-post',['post'=>$post] ,key($post->id)) --}}
+                                    <a class="btn btn-green" wire:click="edit({{ $item }})">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                 </td>
@@ -88,6 +88,12 @@
             @else
                 <div class="px-6 py-4">
                     No se encontro ningun registro
+                </div>
+            @endif
+
+            @if ($posts->hasPages())
+                <div class="px-6 py-4">
+                    {{ $posts->links() }}
                 </div>
             @endif
         </x-table>
