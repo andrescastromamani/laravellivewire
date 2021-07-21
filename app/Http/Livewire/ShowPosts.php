@@ -12,11 +12,19 @@ class ShowPosts extends Component
 {
     use WithFileUploads;
     use WithPagination;
-    public $search, $post, $image,$identificador;
+    public $search = '';
+    public $post, $image,$identificador;
     public $sort = 'id';
     public $direction = 'desc';
     public $open_edit = false;
+    public $cant = '10';
 
+    protected $queryString = [
+        'cant' => ['except' => '10'],
+        'sort' => ['except' => 'id'],
+        'direction' => ['except' => 'desc'],
+        'search' => ['except' => '']
+    ];
     protected $listeners = ['render'];
 
     public function mount(){
@@ -34,7 +42,7 @@ class ShowPosts extends Component
     {
         $posts = Post::where('title','like','%'.$this->search.'%')
                         ->orWhere('content','like','%'.$this->search.'%')
-                        ->orderBy($this->sort,$this->direction)->paginate(10);
+                        ->orderBy($this->sort,$this->direction)->paginate($this->cant);
         return view('livewire.show-posts',compact('posts'));
     }
     public function order($sort){

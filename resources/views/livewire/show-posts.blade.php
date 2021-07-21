@@ -8,7 +8,17 @@
         <!-- This example requires Tailwind CSS v2.0+ -->
         <x-table>
             <div class="px-6 py-4 flex items-center">
-                <x-jet-input class="flex-1 mr-4" placeholder="Buscar..." type="text" wire:model="search"></x-jet-input>
+                <div class="flex items-center">
+                    <span>Mostrar</span>
+                    <select wire:model="cant" class="mr-2 ml-2 form-control">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    <span>Entradas</span>
+                </div>
+                <x-jet-input class="flex-1 mr-4 ml-4" placeholder="Buscar..." type="text" wire:model="search"></x-jet-input>
                 @livewire('create-post')
             </div>
             @if ($posts->count())
