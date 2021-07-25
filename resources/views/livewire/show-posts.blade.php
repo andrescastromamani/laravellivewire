@@ -1,4 +1,4 @@
-<div>
+<div wire:init="loadPosts">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
@@ -21,7 +21,7 @@
                 <x-jet-input class="flex-1 mr-4 ml-4" placeholder="Buscar..." type="text" wire:model="search"></x-jet-input>
                 @livewire('create-post')
             </div>
-            @if ($posts->count())
+            @if (count($posts))
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
@@ -95,17 +95,17 @@
                         <!-- More people... -->
                     </tbody>
                 </table>
+                @if ($posts->hasPages())
+                    <div class="px-6 py-4">
+                        {{ $posts->links() }}
+                    </div>
+                @endif
             @else
                 <div class="px-6 py-4">
                     No se encontro ningun registro
                 </div>
             @endif
 
-            @if ($posts->hasPages())
-                <div class="px-6 py-4">
-                    {{ $posts->links() }}
-                </div>
-            @endif
         </x-table>
     </div>
 

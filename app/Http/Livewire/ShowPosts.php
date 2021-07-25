@@ -17,6 +17,7 @@ class ShowPosts extends Component
     public $sort = 'id';
     public $direction = 'desc';
     public $open_edit = false;
+    public $readyToLoad = false;
     public $cant = '10';
 
     protected $queryString = [
@@ -40,10 +41,17 @@ class ShowPosts extends Component
     ];
     public function render()
     {
-        $posts = Post::where('title','like','%'.$this->search.'%')
-                        ->orWhere('content','like','%'.$this->search.'%')
-                        ->orderBy($this->sort,$this->direction)->paginate($this->cant);
+        if ($this->readyToLoad) {
+            $posts = Post::where('title','like','%'.$this->search.'%')
+                ->orWhere('content','like','%'.$this->search.'%')
+                ->orderBy($this->sort,$this->direction)->paginate($this->cant);
+        }else{
+            $posts = [];
+        }
         return view('livewire.show-posts',compact('posts'));
+    }
+    public function loadPosts () {
+        $this->readyToLoad = true;
     }
     public function order($sort){
         if($this->sort == $sort){
