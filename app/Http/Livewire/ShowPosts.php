@@ -26,7 +26,7 @@ class ShowPosts extends Component
         'direction' => ['except' => 'desc'],
         'search' => ['except' => '']
     ];
-    protected $listeners = ['render'];
+    protected $listeners = ['render','delete'];
 
     public function mount(){
         $this->identificador = rand();
@@ -81,5 +81,8 @@ class ShowPosts extends Component
         $this->reset(['open_edit','image']);
         $this->identificador = rand();
         $this->emit('alert','Post editado con Exito');
+    }
+    public  function delete(Post $post) {
+        $post->delete();
     }
 }
