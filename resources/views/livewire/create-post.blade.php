@@ -14,14 +14,14 @@
             @if ($image)
                 <img class="mb-4" src="{{ $image->temporaryUrl() }}" alt="Imagen Seleccionada">
             @endif
-            <div class="mb-4">
+            <div class="mb-4" >
                 <x-jet-label>Titulo del Post</x-jet-label>
                 <x-jet-input class="w-full" type="text" wire:model="title" />
                 <x-jet-input-error for="title" />
             </div>
-            <div class="mb-4">
+            <div class="mb-4" wire:ignore>
                 <x-jet-label>Contenido del Post</x-jet-label>
-                <textarea class="form-control w-full" type="text" rows="6" wire:model.defer="content"></textarea>
+                <textarea id="editor" class="form-control w-full" type="text" rows="6" wire:model.defer="content"></textarea>
                 <x-jet-input-error for="content" />
             </div>
             <div>
@@ -35,4 +35,20 @@
                 class="disabled:opacity-25">Crear</x-jet-danger-button>
         </x-slot>
     </x-jet-dialog-modal>
+
+    @push('js')
+        <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
+        <script>
+            ClassicEditor
+                .create( document.querySelector( '#editor' ) )
+                .then(function (editor){
+                    editor.model.document.on('change:data',() => {
+                        @this.set('content',editor.getData());
+                    })
+                })
+                .catch( error => {
+                    console.error( error );
+                } );
+        </script>
+    @endpush
 </div>
